@@ -7,14 +7,14 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 # Set additional flags.
 set(CMAKE_CXX_FLAGS "-Wall -Wextra") # -Wall -Wextra: show all warnings
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0") # -g: keep debug information in binary
+set(CMAKE_CXX_FLAGS_DEBUG "--coverage -g -O0") # -g: keep debug information in binary, --coverage: Emits code coverage data for gcovr
 set(CMAKE_CXX_FLAGS_RELEASE "-O3") # -O<num>: optimization level in {0, 1, 2, 3}: 0: no optimization 3: full optimization
+
 # tell cmake to output binaries here: 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib) # tell cmake where to look for *.h files 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-# create library "libtools"
-#add_library(tools src/queue.cpp) # add executable main
-add_executable(main src/main.cpp)
-# tell the linker to bind these objects together 
-#target_link_libraries(main tools)
+
+add_subdirectory(src)
+enable_testing()
+add_subdirectory(test)

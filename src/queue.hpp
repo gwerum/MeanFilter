@@ -34,7 +34,6 @@ inline void FixedSizeQueue<T,N>::increaseSize() {
 
 template<typename T, int N>
 inline void FixedSizeQueue<T,N>::push(T const& element) {
-    std::cout << "Stored '" << element << "' at index: " << curr_idx_ << std::endl;
     data_[curr_idx_] = element;
     increaseIndex();
     increaseSize();
@@ -52,7 +51,7 @@ inline T& FixedSizeQueue<T,N>::operator[] (int index) {
 
 template<typename T, int N>
 inline int FixedSizeQueue<T,N>::convertToArrayIndex( int virtual_index ) const {
-    return ((curr_idx_ + virtual_index ) % N);
+    return ((curr_idx_ + virtual_index ) % size());
 }
 
 template<typename T, int N>
