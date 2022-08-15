@@ -27,6 +27,8 @@ public:
     T operator[] (size_t index) const;
     T& operator[] (size_t index);
     size_t size() const { return curr_size_;};
+    template<typename _T, size_t _N>
+    friend std::ostream& operator<<( std::ostream& os, FixedSizeQueue<_T,_N> const& queue);
 };
 
 template<typename T, size_t N>
@@ -87,8 +89,8 @@ inline size_t FixedSizeQueue<T,N>::convertToBufferIndex( size_t virtual_index ) 
     return ((curr_idx_ + virtual_index ) % size());
 }
 
-template<typename T, size_t N>
-inline std::ostream& operator<< ( std::ostream& os, FixedSizeQueue<T,N> const& queue )
+template<typename _T, size_t _N>
+std::ostream& operator<<( std::ostream& os, FixedSizeQueue<_T,_N> const& queue)
 {
     os << "[";
     for(size_t i{0}; i<queue.size(); ++i)

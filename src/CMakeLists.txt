@@ -1,5 +1,7 @@
-# create library "libtools"
-#add_library(tools src/queue.cpp) # add executable main
+# create library "filter"
+# add_library(filter filter.cpp) 
+
+# add executable main
 add_executable(main main.cpp)
 # tell the linker to bind these objects together 
-#target_link_libraries(main tools)
+# target_link_libraries(main filter)
