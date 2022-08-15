@@ -10,7 +10,7 @@ int main()
     std::cout << "Array: [";
     for(int i{0}; i<size; ++i)
     {
-        queue.push(arr[i]);
+        queue.emplace(arr[i]);
         if(i != (size - 1))
         {
             std::cout << arr[i] << ", ";
