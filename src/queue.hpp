@@ -71,14 +71,14 @@ inline void FixedSizeQueue<T,N>::push(T&& element) {
 template<typename T, size_t N>
 inline T FixedSizeQueue<T,N>::operator[] (size_t index) const {
     if (index >= N)
-        throw std::out_of_range("Accessing queue index out-of-range");
+        throw std::out_of_range("Accessing queue at index out-of-range");
     return data_[convertToBufferIndex(index)];
 }
 
 template<typename T, size_t N>
 inline T& FixedSizeQueue<T,N>::operator[] (size_t index) {
     if (index >= N)
-        throw std::out_of_range("Accessing queue index out-of-range");
+        throw std::out_of_range("Accessing queue at index out-of-range");
     return data_[convertToBufferIndex(index)];
 }
 
