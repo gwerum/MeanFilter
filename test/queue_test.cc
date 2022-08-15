@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
 #include <queue.hpp>
+#include <sstream>
+#include <iostream>
+#include <string>
 
 // Unit test for default initialization of FixedSizeQueue
 TEST(QueueTest, DefaultConstructor) {
@@ -39,4 +42,19 @@ TEST(QueueTest, Emplace) {
   {
     EXPECT_EQ(expected_values[i+5], queue[i]);
   }
+}
+
+// Unit test for FixedSizeQueue::operator<<(std::ostream& os)
+TEST(QueueTest, StreamOperator) {
+  // Initialize queue with values
+  int arr[5] = {1,2,3,4,5};
+  FixedSizeQueue<int, 5> queue{arr};
+
+  // Check if output stream is correct
+  std::stringstream ss;
+  ss << queue;
+  std::string expected_output, actual_output;
+  expected_output = "[1,2,3,4,5]";
+  ss >> actual_output;
+  EXPECT_EQ(expected_output, actual_output);
 }

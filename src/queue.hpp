@@ -93,11 +93,10 @@ inline std::ostream& operator<< ( std::ostream& os, FixedSizeQueue<T,N> const& q
     os << "[";
     for(size_t i{0}; i<queue.size(); ++i)
     {
-        T const value{queue[i]};
-        os << value;
+        os << std::to_string(queue[i]);
         if(i != (queue.size() - 1))
         {
-            os << ", ";
+            os << ",";
         }
         else
         {
