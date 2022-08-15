@@ -12,12 +12,29 @@ private:
     void increaseSize();
     int convertToArrayIndex( int virtual_index ) const;
 public:
+    // Constructors
     FixedSizeQueue() = default;
     ~FixedSizeQueue() = default;
+    template<size_t U>
+    FixedSizeQueue(T (&arr)[U]);
+
+    // Methods
+    template<typename... Elements>
+    void emplace(Elements&&... elements);
     void push(T const& element);
+    void push(T&& element);
     T operator[] (int index) const;
     T& operator[] (int index);
     int size() const { return curr_size_;};
+};
+
+template<typename T, int N>
+template<size_t U>
+FixedSizeQueue<T,N>::FixedSizeQueue(T (&arr)[U]) {
+    for(size_t i{0}; i<U; ++i)
+    {
+        emplace(std::move(arr[i]));
+    }
 };
 
 template<typename T, int N>
@@ -33,10 +50,21 @@ inline void FixedSizeQueue<T,N>::increaseSize() {
 }
 
 template<typename T, int N>
-inline void FixedSizeQueue<T,N>::push(T const& element) {
-    data_[curr_idx_] = element;
+template<typename... Elements>
+inline void FixedSizeQueue<T,N>::emplace(Elements&&... elements) {
+    data_[curr_idx_] = T(std::forward<Elements>(elements)...);
     increaseIndex();
     increaseSize();
+}
+
+template<typename T, int N>
+inline void FixedSizeQueue<T,N>::push(T const& element) {
+    emplace(element);
+}
+
+template<typename T, int N>
+inline void FixedSizeQueue<T,N>::push(T&& element) {
+    emplace(std::move(element));
 }
 
 template<typename T, int N>
