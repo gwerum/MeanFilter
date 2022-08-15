@@ -7,7 +7,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 # Set additional flags.
 set(CMAKE_CXX_FLAGS "-Wall -Wextra") # -Wall -Wextra: show all warnings
-set(CMAKE_CXX_FLAGS_DEBUG "--coverage -g -O0") # -g: keep debug information in binary, --coverage: Emits code coverage data for gcovr
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0") # -g: keep debug information in binary, --coverage: Emits code coverage data for gcovr
 set(CMAKE_CXX_FLAGS_RELEASE "-O3") # -O<num>: optimization level in {0, 1, 2, 3}: 0: no optimization 3: full optimization
 
 # tell cmake to output binaries here: 
