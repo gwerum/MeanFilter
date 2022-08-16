@@ -16,14 +16,14 @@ public:
     // Constructors
     FixedSizeQueue() = default;
     ~FixedSizeQueue() = default;
-    template<size_t U>
-    FixedSizeQueue(T (&arr)[U]);
+    template<size_t ARR_SIZE>
+    FixedSizeQueue(T (&arr)[ARR_SIZE]);
 
     // Methods
-    template<typename Element>
-    void emplace(Element&& element);
-    void push(T& element);
-    void push(T&& element);
+    template<class... Args>
+    void emplace_back(Args&&... args);
+    void push_back(T const& element);
+    void push_back(T&& element);
     T operator[] (size_t index) const;
     T& operator[] (size_t index);
     size_t size() const { return curr_size_;};
@@ -32,11 +32,11 @@ public:
 };
 
 template<typename T, size_t N>
-template<size_t U>
-inline FixedSizeQueue<T,N>::FixedSizeQueue(T (&arr)[U]) {
-    for(size_t i{0}; i<U; ++i)
+template<size_t ARR_SIZE>
+inline FixedSizeQueue<T,N>::FixedSizeQueue(T (&arr)[ARR_SIZE]) {
+    for(size_t i{0}; i<ARR_SIZE; ++i)
     {
-        emplace(std::move(arr[i]));
+        push_back(arr[i]);
     }
 };
 
@@ -53,21 +53,21 @@ inline void FixedSizeQueue<T,N>::increaseSize() {
 }
 
 template<typename T, size_t N>
-template<typename Element>
-inline void FixedSizeQueue<T,N>::emplace(Element&& element) {
-    data_[curr_idx_] = std::forward<Element>(element);
+template<class... Args>
+inline void FixedSizeQueue<T,N>::emplace_back(Args&&... args) {
+    data_[curr_idx_] = T(std::forward<Args>(args)...);
     increaseIndex();
     increaseSize();
 }
 
 template<typename T, size_t N>
-inline void FixedSizeQueue<T,N>::push(T& element) {
-    emplace(std::move(element));
+inline void FixedSizeQueue<T,N>::push_back(T const& element) {
+    emplace_back(element);
 }
 
 template<typename T, size_t N>
-inline void FixedSizeQueue<T,N>::push(T&& element) {
-    emplace(element);
+inline void FixedSizeQueue<T,N>::push_back(T&& element) {
+    emplace_back(std::move(element));
 }
 
 template<typename T, size_t N>

@@ -24,8 +24,8 @@ TEST(QueueTest, ParametrizedConstructor) {
   }
 }
 
-// Unit test for FixedSizeQueue::emplace(Elements&&... elements)
-TEST(QueueTest, Emplace) {
+// Unit test for FixedSizeQueue::emplace_back(Elements&&... elements)
+TEST(QueueTest, EmplaceBack) {
   // Test parametrized constructor
   int expected_values[10] = {1,2,3,4,5,6,7,8,9,10};
   FixedSizeQueue<int, 5> queue;
@@ -33,7 +33,7 @@ TEST(QueueTest, Emplace) {
   // Add 10 values to queue
   for(size_t i{0}; i<10; ++i)
   {
-    queue.emplace(expected_values[i]);
+    queue.emplace_back(expected_values[i]);
   }
   
   // Check if only last 5 values exist in queue

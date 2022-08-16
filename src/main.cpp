@@ -4,13 +4,13 @@
 
 int main()
 {
-    std::vector<int> measurements{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};    
+    std::vector<char> measurements{'a','b','c'};
+    //std::vector<double> measurements{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};    
     MeanFilter<int, 10> filter;
 
-    while(!measurements.empty())
+    for(auto const& measurement: measurements)
     {
-        filter.receive(std::move(measurements.back()));
-        measurements.pop_back();
+        filter.receive(measurement);
     }
 
     std::cout << "Measurements received: " << filter << std::endl;
