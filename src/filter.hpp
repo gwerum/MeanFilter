@@ -9,16 +9,16 @@ private:
 public:
     MeanFilter() = default;
     ~MeanFilter() = default;
-    void receive(T measurement);
+    void receive(T&& measurement);
     double getMean() const;
     template<typename _T, size_t _N>
     friend std::ostream& operator<<(std::ostream& os, MeanFilter<_T,_N> const& filter );
 };
 
 template<typename T, size_t N>
-inline void MeanFilter<T,N>::receive(T measurement)
+inline void MeanFilter<T,N>::receive(T&& measurement)
 {
-    measurements_.emplace(std::move(measurement));
+    measurements_.emplace(measurement);
 }
 
 template<typename T, size_t N>
